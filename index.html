@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eff2eb">
+  <meta name="description" content="Fresh neighborhood favorites, delivered to your door.">
+  <title>Goodside — good food, right on time</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght,SOFT,WONK@9..144,600,20,1;9..144,700,20,1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17352a;
+      --muted: #718078;
+      --paper: #eff2eb;
+      --white: #fffefa;
+      --line: #dce3d9;
+      --green: #244b3a;
+      --lime: #d5ed75;
+      --coral: #ec6149;
+      --font-body: "DM Sans", sans-serif;
+      --font-display: "Fraunces", Georgia, serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    button:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
+    .shell { width: min(1320px, calc(100% - 64px)); margin: 0 auto; }
+
+    .topbar { height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .brand { color: var(--ink); display: inline-flex; align-items: center; gap: 9px; text-decoration: none; font-size: 23px; font-weight: 700; letter-spacing: 0; }
+    .brand-mark { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50% 50% 45% 50%; background: var(--coral); color: white; font-size: 17px; transform: rotate(-8deg); }
+    .delivery { display: grid; gap: 2px; margin-right: auto; padding-left: 30px; border-left: 1px solid var(--line); line-height: 1.2; }
+    .delivery small { color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .delivery strong { font-size: 13px; font-weight: 600; }
+    .delivery strong span { color: var(--coral); padding-left: 3px; }
+    .top-actions { display: flex; align-items: center; gap: 12px; }
+    .search { height: 42px; width: 220px; display: flex; align-items: center; gap: 9px; padding: 0 13px; border: 1px solid var(--line); border-radius: 5px; background: rgba(255,255,255,.55); color: var(--muted); }
+    .search svg { flex: none; }
+    .search input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--ink); font-size: 12px; }
+    .search input::placeholder { color: #849087; }
+    .bag-button { height: 42px; padding: 0 15px; border: 0; border-radius: 5px; background: var(--green); color: white; cursor: pointer; font-weight: 600; font-size: 12px; transition: background .2s, transform .2s; }
+    .bag-button:hover { background: var(--ink); transform: translateY(-1px); }
+    .bag-count { display: inline-grid; place-items: center; min-width: 19px; height: 19px; margin-left: 7px; padding: 0 5px; border-radius: 20px; background: var(--lime); color: var(--ink); font-size: 10px; }
+
+    .hero { min-height: 355px; position: relative; overflow: hidden; isolation: isolate; display: flex; align-items: center; border-radius: 7px; background: #52624a url("https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1900&q=85") center 52% / cover no-repeat; color: white; }
+    .hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(13,34,25,.88) 0%, rgba(13,34,25,.67) 38%, rgba(13,34,25,.08) 100%); }
+    .hero-content { width: min(580px, 70%); padding: 44px 56px; animation: arrive .7s both; }
+    .eyebrow { display: flex; align-items: center; gap: 9px; margin: 0 0 16px; color: var(--lime); font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 22px; height: 1px; background: currentColor; }
+    h1 { max-width: 480px; margin: 0; font-family: var(--font-display); font-size: clamp(42px, 5.4vw, 68px); line-height: .99; font-weight: 600; letter-spacing: 0; }
+    .hero-copy { margin: 15px 0 23px; color: rgba(255,255,255,.84); font-size: 14px; }
+    .hero-bottom { display: flex; align-items: center; gap: 18px; }
+    .primary-link { display: inline-flex; align-items: center; gap: 16px; padding: 12px 15px; border-radius: 4px; background: var(--lime); color: var(--ink); text-decoration: none; font-size: 12px; font-weight: 700; transition: background .2s, transform .2s; }
+    .primary-link:hover { background: #e3f79a; transform: translateY(-2px); }
+    .primary-link span { font-size: 17px; line-height: 10px; }
+    .delivery-note { display: flex; align-items: center; gap: 7px; color: white; font-size: 11px; }
+    .delivery-note b { display: grid; place-items: center; width: 22px; height: 22px; border: 1px solid rgba(255,255,255,.55); border-radius: 50%; font-size: 10px; }
+
+    .menu-section { padding: 35px 0 72px; scroll-margin-top: 20px; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 21px; }
+    .section-kicker { margin: 0 0 5px; color: var(--coral); font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    h2 { margin: 0; font-family: var(--font-display); font-size: 33px; font-weight: 600; letter-spacing: 0; line-height: 1.1; }
+    .hours { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 11px; }
+    .open-dot { width: 7px; height: 7px; border-radius: 50%; background: #69a76e; box-shadow: 0 0 0 3px #d9e8d5; }
+    .filters { display: flex; gap: 8px; margin: 0 0 22px; overflow-x: auto; scrollbar-width: none; }
+    .filters::-webkit-scrollbar { display: none; }
+    .filter { flex: none; padding: 8px 14px; border: 1px solid var(--line); border-radius: 3px; background: transparent; color: #647269; cursor: pointer; font-size: 11px; font-weight: 600; transition: .18s ease; }
+    .filter:hover { border-color: var(--green); color: var(--green); }
+    .filter[aria-pressed="true"] { border-color: var(--green); background: var(--green); color: white; }
+    .menu-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 15px; }
+    .dish { min-width: 0; overflow: hidden; border: 1px solid #e2e7df; border-radius: 5px; background: var(--white); animation: arrive .4s both; }
+    .dish-image { display: block; width: 100%; height: 170px; object-fit: cover; background: #dfe6d8; }
+    .dish-info { padding: 13px 14px 14px; }
+    .dish-name-row { display: flex; align-items: start; justify-content: space-between; gap: 8px; }
+    .dish h3 { margin: 0; font-size: 13px; font-weight: 700; line-height: 1.3; }
+    .price { flex: none; color: var(--green); font-size: 12px; font-weight: 700; }
+    .dish-description { min-height: 32px; margin: 6px 0 12px; color: var(--muted); font-size: 10px; line-height: 1.55; }
+    .dish-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .dish-tag { color: #88948c; font-size: 9px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+    .add-button { padding: 7px 10px; border: 1px solid #cbd7cb; border-radius: 3px; background: transparent; color: var(--green); cursor: pointer; font-size: 10px; font-weight: 700; transition: .18s ease; }
+    .add-button:hover { border-color: var(--coral); background: var(--coral); color: white; }
+    .empty-state { grid-column: 1 / -1; padding: 46px 20px; border: 1px dashed #cbd7cb; color: var(--muted); text-align: center; font-size: 13px; }
+    .footer { padding: 20px 0 28px; border-top: 1px solid var(--line); color: var(--muted); font-size: 10px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 12px; }
+    .footer strong { color: var(--ink); }
+
+    .scrim { position: fixed; inset: 0; z-index: 10; background: rgba(10,25,18,.45); opacity: 0; visibility: hidden; transition: opacity .22s, visibility .22s; }
+    .scrim.is-open { opacity: 1; visibility: visible; }
+    .drawer { position: fixed; z-index: 11; inset: 0 0 0 auto; display: flex; flex-direction: column; width: min(420px, 100%); padding: 25px; background: var(--white); box-shadow: -18px 0 48px rgba(18,38,26,.16); transform: translateX(102%); transition: transform .28s ease; }
+    .drawer.is-open { transform: translateX(0); }
+    .drawer-head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 19px; border-bottom: 1px solid var(--line); }
+    .drawer-head h2 { font-size: 27px; }
+    .close-button { display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: transparent; cursor: pointer; font-size: 21px; }
+    .cart-items { flex: 1; overflow: auto; padding: 7px 0; }
+    .cart-empty { padding: 40px 10px; color: var(--muted); text-align: center; font-size: 13px; line-height: 1.6; }
+    .cart-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+    .cart-row h3 { margin: 0 0 4px; font-size: 12px; }
+    .cart-row p { margin: 0; color: var(--muted); font-size: 11px; }
+    .quantity { display: flex; align-items: center; gap: 9px; align-self: center; }
+    .quantity button { width: 25px; height: 25px; border: 1px solid var(--line); border-radius: 50%; background: transparent; cursor: pointer; }
+    .quantity span { min-width: 12px; text-align: center; font-size: 11px; font-weight: 700; }
+    .cart-summary { padding-top: 15px; border-top: 1px solid var(--line); }
+    .summary-line { display: flex; justify-content: space-between; padding: 5px 0; color: var(--muted); font-size: 12px; }
+    .summary-line.total { margin-top: 5px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--ink); font-size: 15px; font-weight: 700; }
+    .checkout { width: 100%; margin-top: 15px; padding: 14px; border: 0; border-radius: 4px; background: var(--coral); color: white; cursor: pointer; font-size: 12px; font-weight: 700; transition: background .2s; }
+    .checkout:hover:not(:disabled) { background: #d94c36; }
+    .checkout:disabled { background: #d7ddd5; color: #89938b; cursor: not-allowed; }
+    .notice { min-height: 17px; margin: 9px 0 0; color: var(--green); text-align: center; font-size: 11px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    @keyframes arrive { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 980px) {
+      .menu-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .dish-image { height: 155px; }
+      .hero { min-height: 330px; }
+    }
+    @media (max-width: 680px) {
+      .shell { width: min(100% - 32px, 520px); }
+      .topbar { height: auto; min-height: 66px; flex-wrap: wrap; gap: 10px; padding: 13px 0; }
+      .brand { font-size: 21px; }
+      .brand-mark { width: 27px; height: 27px; }
+      .delivery { padding-left: 13px; }
+      .delivery strong { max-width: 145px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11px; }
+      .top-actions { width: 100%; gap: 8px; }
+      .search { flex: 1; width: auto; height: 40px; }
+      .bag-button { height: 40px; }
+      .hero { min-height: 355px; align-items: end; background-position: 58% center; border-radius: 5px; }
+      .hero::before { background: linear-gradient(0deg, rgba(13,34,25,.91) 0%, rgba(13,34,25,.62) 49%, rgba(13,34,25,.03) 100%); }
+      .hero-content { width: 100%; padding: 30px 23px; }
+      h1 { max-width: 390px; font-size: 49px; }
+      .hero-copy { max-width: 280px; font-size: 12px; }
+      .hero-bottom { gap: 12px; }
+      .menu-section { padding: 28px 0 52px; }
+      .section-head { align-items: start; flex-direction: column; gap: 11px; margin-bottom: 17px; }
+      h2 { font-size: 29px; }
+      .menu-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .dish-image { height: clamp(112px, 36vw, 165px); }
+      .dish-info { padding: 10px; }
+      .dish h3 { font-size: 12px; }
+      .dish-description { min-height: 45px; font-size: 9px; }
+      .dish-tag { font-size: 8px; }
+      .add-button { padding: 7px 8px; }
+      .footer-inner { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell topbar">
+    <a class="brand" href="#top" aria-label="Goodside home"><span class="brand-mark" aria-hidden="true">g</span>goodside</a>
+    <div class="delivery"><small>Delivering to</small><strong>Home · 18 Waverly Pl <span>⌄</span></strong></div>
+    <div class="top-actions">
+      <label class="search">
+        <svg aria-hidden="true" width="15" height="15" viewBox="0 0 20 20" fill="none"><circle cx="8.8" cy="8.8" r="5.8" stroke="currentColor" stroke-width="1.6"/><path d="m13.2 13.2 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <span class="sr-only">Search dishes</span>
+        <input id="search-input" type="search" placeholder="Find something delicious" autocomplete="off">
+      </label>
+      <button class="bag-button" id="open-bag" type="button" aria-controls="bag-drawer" aria-expanded="false">Your bag <span class="bag-count" id="bag-count">0</span></button>
+    </div>
+  </header>
+
+  <main id="top" class="shell">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-content">
+        <p class="eyebrow">Lebanese favorites, made fresh</p>
+        <h1 id="hero-title">Lebanese flavor.<br>Right on time.</h1>
+        <p class="hero-copy">Warm pita, bright mezze, and slow-grilled favorites, brought straight to your door.</p>
+        <div class="hero-bottom">
+          <a class="primary-link" href="#menu">Explore the menu <span aria-hidden="true">↘</span></a>
+          <span class="delivery-note"><b aria-hidden="true">25</b> Free delivery over $25</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="menu-section" id="menu" aria-labelledby="menu-title">
+      <div class="section-head">
+        <div><p class="section-kicker">Mezze, man'oushe, and more</p><h2 id="menu-title">The Lebanese table</h2></div>
+        <div class="hours"><span class="open-dot" aria-hidden="true"></span> Open now <span aria-hidden="true">·</span> 20–35 min</div>
+      </div>
+      <div class="filters" role="group" aria-label="Filter dishes by category" id="filters">
+        <button class="filter" type="button" data-category="All" aria-pressed="true">Everything</button>
+        <button class="filter" type="button" data-category="Mezze" aria-pressed="false">Mezze</button>
+        <button class="filter" type="button" data-category="Wraps" aria-pressed="false">Wraps</button>
+        <button class="filter" type="button" data-category="Grill" aria-pressed="false">From the grill</button>
+        <button class="filter" type="button" data-category="Bakery" aria-pressed="false">Bakery</button>
+        <button class="filter" type="button" data-category="Sides" aria-pressed="false">Sides</button>
+        <button class="filter" type="button" data-category="Sweets" aria-pressed="false">Sweets</button>
+      </div>
+      <div class="menu-grid" id="menu-grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="shell footer-inner"><span><strong>goodside</strong> · Good food has a way of bringing us together.</span><span>Thoughtfully made around the corner.</span></div></footer>
+
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="bag-drawer" aria-labelledby="bag-title" aria-hidden="true">
+    <div class="drawer-head"><h2 id="bag-title">Your bag <span id="bag-title-count">(0)</span></h2><button class="close-button" id="close-bag" type="button" aria-label="Close bag">×</button></div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-summary">
+      <div class="summary-line"><span>Subtotal</span><span id="subtotal">$0.00</span></div>
+      <div class="summary-line"><span>Delivery</span><span id="delivery-fee">$0.00</span></div>
+      <div class="summary-line total"><span>Total</span><span id="total">$0.00</span></div>
+      <button class="checkout" id="checkout" type="button" disabled>Continue to checkout</button>
+      <p class="notice" id="notice" role="status"></p>
+    </div>
+  </aside>
+
+  <script>
+    const dishes = [
+      { id: "hummus", name: "Hummus & warm pita", category: "Mezze", price: 9, description: "Silky chickpeas, lemon, olive oil, house-baked pita", tag: "A table essential", image: "photo-1577906096429-f73c2c312435", alt: "Hummus served with warm pita bread" },
+      { id: "fattoush", name: "Fattoush salad", category: "Mezze", price: 12, description: "Crisp greens, radish, sumac, toasted pita", tag: "Fresh & bright", image: "photo-1540420773420-3366772f4999", alt: "Fresh chopped salad with greens and vegetables" },
+      { id: "shawarma-wrap", name: "Chicken shawarma wrap", category: "Wraps", price: 14, description: "Spiced chicken, pickles, toum, saj bread", tag: "House favorite", image: "photo-1529006557810-274b9b2fc783", alt: "Chicken shawarma wrapped in flatbread" },
+      { id: "falafel-wrap", name: "Falafel pita", category: "Wraps", price: 12, description: "Herby falafel, chopped salad, tahini sauce", tag: "Plant powered", image: "photo-1529006557810-274b9b2fc783", alt: "Falafel with fresh vegetables and pita" },
+      { id: "kafta", name: "Kafta grill plate", category: "Grill", price: 19, description: "Charcoal-grilled beef kafta, rice, grilled tomato", tag: "From the charcoal", image: "photo-1544025162-d76694265947", alt: "Grilled meat with herbs and vegetables" },
+      { id: "zaatar-manoushe", name: "Za'atar man'oushe", category: "Bakery", price: 10, description: "Flatbread, fragrant za'atar, extra-virgin olive oil", tag: "Baked to order", image: "photo-1579751626657-72bc17010498", alt: "Freshly baked flatbread with herbs" },
+      { id: "batata-harra", name: "Batata harra", category: "Sides", price: 8, description: "Crispy potatoes, garlic, cilantro, a little chili", tag: "A little kick", image: "photo-1518977676601-b53f82aba655", alt: "Golden roasted potatoes with herbs" },
+      { id: "baklava", name: "Pistachio baklava", category: "Sweets", price: 7, description: "Flaky phyllo, crushed pistachio, orange blossom", tag: "Something sweet", image: "photo-1519676867240-f03562e64548", alt: "Layered pastry dessert with nuts" }
+    ];
+
+    const cart = new Map();
+    const grid = document.querySelector("#menu-grid");
+    const searchInput = document.querySelector("#search-input");
+    const filterButtons = [...document.querySelectorAll(".filter")];
+    const bagButton = document.querySelector("#open-bag");
+    const drawer = document.querySelector("#bag-drawer");
+    const scrim = document.querySelector("#scrim");
+    let activeCategory = "All";
+
+    const money = (amount) => `$${amount.toFixed(2)}`;
+
+    function renderMenu() {
+      const query = searchInput.value.trim().toLowerCase();
+      const visible = dishes.filter((dish) => {
+        const matchesCategory = activeCategory === "All" || dish.category === activeCategory;
+        const matchesQuery = `${dish.name} ${dish.description} ${dish.category}`.toLowerCase().includes(query);
+        return matchesCategory && matchesQuery;
+      });
+
+      if (!visible.length) {
+        grid.innerHTML = '<p class="empty-state">Nothing on the menu matches that search. Try another dish or category.</p>';
+        return;
+      }
+
+      grid.innerHTML = visible.map((dish, index) => `
+        <article class="dish" style="animation-delay:${Math.min(index, 5) * 45}ms">
+          <img class="dish-image" src="https://images.unsplash.com/${dish.image}?auto=format&fit=crop&w=720&q=80" alt="${dish.alt}" loading="lazy">
+          <div class="dish-info">
+            <div class="dish-name-row"><h3>${dish.name}</h3><span class="price">${money(dish.price)}</span></div>
+            <p class="dish-description">${dish.description}</p>
+            <div class="dish-foot"><span class="dish-tag">${dish.tag}</span><button class="add-button" type="button" data-add="${dish.id}" aria-label="Add ${dish.name} to your bag">Add +</button></div>
+          </div>
+        </article>`).join("");
+    }
+
+    function renderCart() {
+      const entries = [...cart.entries()];
+      const itemCount = entries.reduce((total, [, quantity]) => total + quantity, 0);
+      const subtotal = entries.reduce((total, [id, quantity]) => total + dishes.find((dish) => dish.id === id).price * quantity, 0);
+      const delivery = subtotal === 0 || subtotal >= 25 ? 0 : 2.99;
+
+      document.querySelector("#bag-count").textContent = itemCount;
+      document.querySelector("#bag-title-count").textContent = `(${itemCount})`;
+      document.querySelector("#subtotal").textContent = money(subtotal);
+      document.querySelector("#delivery-fee").textContent = delivery === 0 ? (subtotal === 0 ? money(0) : "Free") : money(delivery);
+      document.querySelector("#total").textContent = money(subtotal + delivery);
+      document.querySelector("#checkout").disabled = itemCount === 0;
+
+      document.querySelector("#cart-items").innerHTML = entries.length ? entries.map(([id, quantity]) => {
+        const dish = dishes.find((item) => item.id === id);
+        return `<div class="cart-row"><div><h3>${dish.name}</h3><p>${money(dish.price * quantity)}</p></div><div class="quantity"><button type="button" data-change="${id}" data-delta="-1" aria-label="Remove one ${dish.name}">−</button><span>${quantity}</span><button type="button" data-change="${id}" data-delta="1" aria-label="Add one ${dish.name}">+</button></div></div>`;
+      }).join("") : '<p class="cart-empty">Your bag is looking a little empty.<br>Pick something delicious from the menu.</p>';
+    }
+
+    function setDrawerOpen(isOpen) {
+      drawer.classList.toggle("is-open", isOpen);
+      scrim.classList.toggle("is-open", isOpen);
+      drawer.setAttribute("aria-hidden", String(!isOpen));
+      bagButton.setAttribute("aria-expanded", String(isOpen));
+      document.body.style.overflow = isOpen ? "hidden" : "";
+      if (isOpen) document.querySelector("#close-bag").focus();
+      else bagButton.focus();
+    }
+
+    grid.addEventListener("click", (event) => {
+      const addButton = event.target.closest("[data-add]");
+      if (!addButton) return;
+      const id = addButton.dataset.add;
+      cart.set(id, (cart.get(id) || 0) + 1);
+      renderCart();
+      addButton.textContent = "Added ✓";
+      window.setTimeout(() => { if (addButton.isConnected) addButton.textContent = "Add +"; }, 900);
+    });
+
+    document.querySelector("#cart-items").addEventListener("click", (event) => {
+      const changeButton = event.target.closest("[data-change]");
+      if (!changeButton) return;
+      const id = changeButton.dataset.change;
+      const nextQuantity = (cart.get(id) || 0) + Number(changeButton.dataset.delta);
+      if (nextQuantity <= 0) cart.delete(id);
+      else cart.set(id, nextQuantity);
+      renderCart();
+    });
+
+    document.querySelector("#filters").addEventListener("click", (event) => {
+      const button = event.target.closest("[data-category]");
+      if (!button) return;
+      activeCategory = button.dataset.category;
+      filterButtons.forEach((filter) => filter.setAttribute("aria-pressed", String(filter === button)));
+      renderMenu();
+    });
+
+    searchInput.addEventListener("input", renderMenu);
+    bagButton.addEventListener("click", () => setDrawerOpen(true));
+    document.querySelector("#close-bag").addEventListener("click", () => setDrawerOpen(false));
+    scrim.addEventListener("click", () => setDrawerOpen(false));
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && drawer.classList.contains("is-open")) setDrawerOpen(false);
+    });
+    document.querySelector("#checkout").addEventListener("click", () => {
+      if (!cart.size) return;
+      cart.clear();
+      renderCart();
+      document.querySelector("#notice").textContent = "Demo checkout complete. Order details are ready to connect.";
+    });
+
+    renderMenu();
+    renderCart();
+  </script>
+</body>
+</html>
